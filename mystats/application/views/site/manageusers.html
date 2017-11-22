@@ -1,0 +1,38 @@
+
+<div id="main">
+  <div class="widget-body">
+  <a href='{$static_server}manageusers/add'>Add New User</a>
+     <div class="scroll">
+         <div style="float: right;"><a href='{$base_url}info/ExportData' class='btn btn-primary '><i class="icon-download-alt"></i> Export CSV</a></div><br/>
+         <div class='notice' ></div>
+          <table class="table table-hover">
+              <thead>
+                  <tr>
+                        <th>User Id</th>
+                      <th>User Email</th>
+                        <th>Site URL</th>
+                        <th>Created On</th>
+                  </tr>
+              </thead>
+              <tbody>
+              
+    {foreach from=$manageusers item=user key=i}
+               <tr>
+                   <td>{$user.user_id}</td>
+                   <td>{$user.user_email}</td>
+                   <td>{$site.site_url}</td>
+                   <td>{$site.site_created_on}</td>
+                   <td><a href='{$static_server}manageusers/edit/{$user.user_id}'>Edit</a></td>
+                   <td><a href='#' id='{$user.user_id}' name='delete' class='delete_user'>Delete</a></td>
+               </tr>
+    {/foreach}
+                
+                </div>
+           </tbody>
+       </table>
+                
+        <div class="pagination-holder black clearfix">
+            <ul id="dark-pagination" class="pagination"></ul>
+        </div>
+    </div>
+</div>

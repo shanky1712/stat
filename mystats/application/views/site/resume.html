@@ -1,0 +1,38 @@
+{literal}
+    <script type="text/javascript">
+
+        jQuery(document).ready(function(){
+            $('#pause_start').Zebra_DatePicker({
+                direction: true,
+                pair: $('#pause_end')
+            });
+             
+            $('#pause_end').Zebra_DatePicker({
+                direction: 1
+            });
+        });
+    </script>
+{/literal}        
+
+<div id="main">
+
+    <!-- wrapper-main -->
+    <div class="wrapper">
+        <form class="form-horizontal formular logForm" method="POST" action="#" name="logForm" id="logForm">
+            <fieldset>
+                <legend>Add New Pause / Resume</legend>
+                    <br />
+                     <input type="text" class="required" id="pause_title" name="pause_title" rel="Enter the Title" value="">
+                     <input type="text" class="required" id="pause_start" name="pause_start" class="datepick" rel="Specify start Date" value="">
+                     <input type="text" class="required" id="pause_end" name="pause_end" class="datepick" rel="Specify End Date" value="">
+                     <button type="button" id="add_pause" class="btn btn-success login-btn"> Insert </button>
+            </fieldset>
+        </form>
+
+        <div>
+            {foreach from=$pauses item=pause key=i}
+                    <a href="#">{$pause.pause_title}</a>
+            {/foreach}
+        </div>
+</div>
+</div>

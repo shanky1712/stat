@@ -1,0 +1,34 @@
+<div id="main">
+
+<!-- wrapper-main -->
+    <div class="wrapper">
+        <table id="box-table-a" summary="Employee Pay Sheet" style="width: 925px;">
+            <thead>
+                <tr>
+                    <th scope="col">URL</th>
+                    <th scope="col">USER AGENT LANG</th>
+                    <th scope="col">USER IP</th>
+                    <th scope="col">USER CITY</th>
+                    <th scope="col">USER COUNTRY</th>
+                    <th scope="col">BROWSER NAME</th>
+                    <th scope="col">PLATEFOTM</th>
+                    <th scope="col">DATE TIME</th>
+                </tr>
+            </thead>
+            <tbody>
+                {foreach from=$browser_data item=data key=i}
+                    <tr>
+                        <td>{$data.url}</td>
+                        <td>{$data.user_browser_name}</td>
+                        <td>{$data.user_agent_lang}</td>
+                        <td>{$data.user_ip}</td>
+                        <td>{$data.user_city}</td>
+                        <td>{$data.user_country}</td>
+                        <td>{$data.platform}</td>
+                        <td>{$data.data_created_on}</td>
+                    </tr>
+                {/foreach}                
+            </tbody>
+        </table>    
+    </div>
+</div>

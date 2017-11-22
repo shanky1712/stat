@@ -1,0 +1,42 @@
+        <script language="JavaScript" src="{$static_server}files/assets/js/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="{$static_server}files/assets/js/jquery.form.js"></script>
+    <body>
+      <div id="logo" class="center">
+       {if $user.user_type eq 1 OR $view.user_type eq 1 OR $page eq 'landing' }
+             <img src="{$static_server}files/assets/img/mystats.png" alt="logo" class="center" /> 
+        {else}
+             <img src="{$static_server}files/assets/img/logo.png" alt="logo" class="center" /> 
+        {/if}
+      </div>
+
+    {if $user.user_type eq 1 OR $view.user_type eq 1 }
+        <div class="lavalamp" >                
+        <!--  MENU's FOR CLIENT's-->
+            <ul>
+                <li class="active"><a href="{$base_url}home/index/">Home</a></li>
+    <!--         <li><a href="{$base_url}/overview/index/">Overview</a></li> -->
+                <li><a href="{$base_url}demographics/index/">Demographics</a></li>
+                <li><a href="{$base_url}behaviour/index/">behaviour</a></li>
+                <li><a href="{$base_url}resume/index/">Resume / Pause</a></li>
+<!--             <li><a href="">technology</a></li>
+                <li><a href="">mobile</a></li>  -->    
+                <li>Welcome {$user.username}</li>
+                <li><a href="{$base_url}overview/trackcode/">Tracking Code</a></li>
+                <li><a href="{$base_url}home/logout/">LogOut</a></li>
+            </ul>
+            <div class="floatr"></div>
+        </div>
+    {elseif $user.user_type eq 2 && $view.user_type !=1}  
+        <div class="lavalamp">                    <!--  MENU's FOR ADMIN  -->
+            <ul>
+                <li class="active"><a href="{$base_url}home/index/">Home</a></li>
+                <li><a href="{$base_url}home/add_user_request/">Add New Client</a></li>
+                <li><a href="{$base_url}clients/index/">Clients</a></li>
+                <li><a href="{$base_url}export/index/">Export Data</a></li>
+                <li>Welcome {$user.username}</li>
+                <li><a href="{$base_url}home/logout/">LogOut</a></li>
+            </ul>
+            <div class="floatr"></div>
+        </div>    
+       {/if}
+        <!-- ENDS HEADER -->

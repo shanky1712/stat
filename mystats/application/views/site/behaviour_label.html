@@ -1,0 +1,80 @@
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+ {literal}
+<script type="text/javascript">
+    //var input_data = [ ["Year", "Sales"], ["2004",  1000], ["2005",  1170], ["2006",  660,], ["2007",  1030]  ];
+     google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable( [ {/literal}{$visits}{literal} ] );
+        var options = {
+          title: 'Action Events'
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('unique_container'));
+        chart.draw(data, options);
+      }
+    	function sample()
+	{
+		$.removeCookie('country', {expires: -1, path: '/'});
+		$.removeCookie('country_code', {expires: -1, path: '/'});
+		window.location.reload();
+	}
+</script>
+{/literal}
+	{if $success_message}
+		<div align="center" id="proc_msg" style="align: center; color: green; font-weight: bold;">
+			<br>{$success_message}
+		</div>                    
+	{/if}
+
+	{if $error_message}
+		<div align="center" id="proc_msg" style="align: center; color: red; font-weight: bold;">
+			<br>{$error_message}
+		</div>                    
+	{/if}
+
+<div id="main">
+  	<div id="unique_container" style="height:350px; width:auto;"></div>
+     <div class="scroll">
+     <!-- 	<div style="float: right;"><a href='{$base_url}info/ExportData' class='btn btn-primary '>Export CSV</a></div><br/> -->
+               <div class="span12 ">
+                  <!-- BEGIN widget widget-->
+                  <div class="widget">
+                     <div class="widget-title">
+                        <h4><i class="icon-reorder"></i>Portlet</h4>
+                        <div class="actions">
+                        </div>
+                     </div>
+                     <div class="widget-body">
+
+	        <div class="scroller" data-height="200px">
+		      <table class="table table-hover">
+		          <thead>
+		              <tr>
+				<th><i class="icon-user"></i> <span class="hidden-phone ">Language</span></th>
+				<th><i class="icon-briefcase"></i> <span class="hidden-phone">{$labels.count_of_value}</span></th>
+		              </tr>
+		          </thead>
+		          <tbody>
+		          	
+		          	{if $datas !=''}
+				{foreach from=$datas item=data key=i}
+				<tr>
+					<td>{$data.dates}</td>
+					<td><a href="{$base_url}behaviour/details/{$label}/{$data.dates}">{$data.total}</a></td>
+				</tr>
+				{/foreach}	
+			{else}
+				<tr>
+					<td>&nbsp;</td>
+					<td>No Data Available</td>
+				</tr>
+			{/if}	    	
+		            
+	           </tbody>
+	       </table>
+		</div>
+                     </div>
+                  </div>
+                  <!-- END widget widget-->
+               </div>

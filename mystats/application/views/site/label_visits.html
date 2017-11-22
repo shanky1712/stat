@@ -1,0 +1,64 @@
+
+       <link href="{$static_server}files/assets/css/simplePagination.css" rel="stylesheet" />
+       <link href="{$static_server}files/assets/css/style.css" rel="stylesheet" />
+      <script type="text/javascript" src="{$static_server}files/assets/js/jquery.simplePagination.js"></script>
+
+{literal}
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        
+        $('#dark-pagination').pagination({
+            pages: "{/literal}{$total_pages}{literal}",
+            cssStyle: 'dark-theme',
+            displayedPages: 3,
+            hrefTextPrefix:"{/literal}{$base_url}{literal}behaviour/details/{/literal}{$curren_label}{literal}/{/literal}{$date}{literal}/",
+            edges: 3,
+            currentPage:"{/literal}{$current_page}{literal}"
+        });
+
+    });
+</script>
+
+{/literal}
+<div id="main">
+  <div class="widget-body">
+  
+     <div class="scroll">
+         <div style="float: right;"><a href='{$base_url}info/ExportData' class='btn btn-primary '>Export CSV</a></div><br/>
+          <table class="table table-hover">
+              <thead>
+                  <tr>
+                      <th>id</th>
+                      <th>Visitors Screen Size</th>
+                      <th>Url</th>
+                      <th>Visitor City</th>
+                      <th>Visitor Country</th>
+                      <th>Visitor IP</th>
+                      <th>Visited On</th>
+                  </tr>
+              </thead>
+              <tbody>
+              
+               {foreach from=$details item=info key=i}
+               <tr>
+                   <td>{$info.traffic_id}</td>
+                   <td>{$info.user_screen_size}</td>
+                   <td>{$info.url}</td>
+                   <td>{$info.user_city}</td>
+                   <td>{$info.user_country}</td>
+                   <td>{$info.user_ip}</td>
+                   <td>{$info.data_created_on}</td>
+               </tr>
+                {/foreach}
+                
+                </div>
+           </tbody>
+       </table>
+                
+        <div class="pagination-holder black clearfix">
+            <ul id="dark-pagination" class="pagination"></ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,277 @@
+{literal}
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            $('#pause_start').Zebra_DatePicker({
+                direction: true,
+                pair: $('#pause_end')
+            });
+             
+            $('#pause_end').Zebra_DatePicker({
+                direction: 1
+            });
+        });
+        
+        $(document).ready(function(){
+            $(".demographics").click(function(){
+                    $("#Demographics").css("display", "block");
+                    $("#behaviour").css("display", "none");
+                    $("#resume").css("display", "none");
+            });
+            
+            $(".behaviour").click(function(){
+                $("#behaviour").css("display", "block");
+                $("#Demographics").css("display", "none");
+                $("#resume").css("display", "none");
+            });
+            
+            $(".resume").click(function(){
+                $("#resume").css("display", "block");
+                $("#Demographics").css("display", "none");
+                $("#behaviour").css("display", "none");
+            });
+        });
+    </script>
+<style>
+    .active_view{
+        display:block;    
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Graph Data ##############################################
+         var unique_datas = [ {/literal}{$unique_total}{literal} ];
+          var repeat_datas = [ {/literal}{$repeat_total}{literal} ];              
+            $(function () {
+                $('#unique_container').highcharts({
+                    chart: {
+                        type: 'line'
+                    },
+                    title: {
+                        text: 'Unique Visitors Flow'
+                    },
+                    subtitle: {
+                        text: 'Tag+'
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        dateTimeLabelFormats: { // don't display the dummy year
+                            month: '%e. %b',
+                            year: '%b'
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Count Of Visits'
+                        },
+                        min: 0
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+                    tooltip: {
+                        enabled: false,
+                        formatter: function() {
+                            return '<b>'+ this.series.name +'</b><br/>'+
+                                this.x +': '+ this.y +'°C';
+                        }
+                    },
+                    
+                    series: [{
+                        name: 'Unique Visitors',
+                        // Define the data points. All series have a dummy year
+                        // of 1970/71 in order to be compared on the same x axis. Note
+                        // that in JavaScript, months start at 0 for January, 1 for February etc.
+                        data: unique_datas
+                      }]
+                });
+            });
+
+        
+    
+    });
+</script>
+
+{/literal}
+
+    {if $success_message}
+        <div align="center" id="proc_msg" style="align: center; color: green; font-weight: bold;">
+            <br>{$success_message}
+        </div>                    
+    {/if}
+
+    {if $error_message}
+        <div align="center" id="proc_msg" style="align: center; color: red; font-weight: bold;">
+            <br>{$error_message}
+        </div>                    
+    {/if}
+
+<div id="main">
+
+    <div class="wrapper">
+            <div id="graph-wrapper">
+                <a href="#Demographics" class="demographics"> Demographics</a>
+                <a href="#behaviour" class="behaviour"> behaviour</a>
+                <a href="#resume" class="resume"> Resume / Pause</a>                
+            </div>
+            
+            
+            <div class="content">
+                
+                <div id="Demographics" style="display: none;">
+                
+
+                        {if $response}
+                        
+                            <table id="box-table-a" summary="Employee Pay Sheet" style="width: 925px;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Language</th>
+                                        <th scope="col">{$labels.count_of_value}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {foreach from=$lang_data item=data key=i}
+                                        <tr>
+                                            <td>{$data.lang}</td>
+                                            <td>{$data.users}</td>
+                                        </tr>
+                                    {/foreach}                
+                                </tbody>
+                            </table>    
+                    
+                            <table id="box-table-a" summary="Employee Pay Sheet" style="width: 925px;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Country</th>
+                                        <th scope="col">{$labels.count_of_value}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {foreach from=$country_data item=data key=i}
+                                        <tr>
+                                            <td>{$data.lang}</td>
+                                            <td>{$data.users}</td>
+                                        </tr>
+                                    {/foreach}                
+                                </tbody>
+                            </table>    
+                    
+                            <table id="box-table-a" summary="Employee Pay Sheet" style="width: 925px;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">City</th>
+                                        <th scope="col">{$labels.count_of_value}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {foreach from=$city_data item=data key=i}
+                                        <tr>
+                                            <td>{$data.lang}</td>
+                                            <td>{$data.users}</td>
+                                        </tr>
+                                    {/foreach}                
+                                </tbody>
+                            </table>    
+                    
+                        {else}
+                            <table id="box-table-a" summary="Employee Pay Sheet" style="width: 925px;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">{$labels.label_name}</th>
+                                        <th scope="col">{$labels.count_of_value}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {foreach from=$lang_data item=data key=i}
+                                        <tr>
+                                            <td>{$data.lang}</td>
+                                            <td>{$data.users}</td>
+                                        </tr>
+                                    {/foreach}                
+                                </tbody>
+                            </table>    
+                     {/if}
+
+
+                </div>
+
+
+                <div id="behaviour" style="display: none;">
+                
+                    {if is_array($tags) }
+                             <table>
+                                 <tr>
+                                 <span style="font-size: 20px; ">Action Labels : </span>
+                                     {foreach from=$tags item=tag}
+                                         <td>
+                                             <span class="activity">
+                                                <a href="{$base_url}/behaviour/trackevent/?__={$tag.label}" name="tag_stat" class="tag_stat" style="margin-left: 25px; color: green" >{$tag.label}</a>            
+                                             </span>
+                                             </td>
+                                     {/foreach}
+                                 </tr>
+                             </table>
+                    {/if}
+                
+                
+                        <div id="unique_container" style="min-width: 400px; width:450px; height: 400px; margin: 0 auto 0 0; float:right;"></div>
+                    
+                        <div id="repeat_container" style="min-width: 400px; width:450px; height: 400px; margin: 0 auto 0 0; float:right;"></div>
+                    
+                            
+                            <table id="box-table-a" summary="Employee Pay Sheet" style="width: 925px;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">{$labels.label_name}</th>
+                                        <th scope="col">{$labels.count_of_value}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {foreach from=$datas item=data key=i}
+                                        <tr>
+                                            <td><a href="{$base_url}/behaviour/trackevent/?__={$data.label}" name="tag_stat" class="tag_stat" style="margin-left: 25px; color: green" >{$data.label} ({$data.visits})</a></td>
+                                        </tr>
+                                    {/foreach}                
+                                </tbody>
+                            </table>    
+                            
+                            
+                        </div>
+                </div>
+                
+                
+                
+                <div id="resume" style="display: none;">
+
+                        <form class="form-horizontal formular logForm" method="POST" action="#" name="logForm" id="logForm">
+                            <fieldset>
+                                <legend>Add New Pause / Resume</legend>
+                                    <br />
+                                     <input type="text" class="required" id="pause_title" name="pause_title" rel="Enter the Title" value="">
+                                     <input type="text" class="required" id="pause_start" name="pause_start" class="datepick" rel="Specify start Date" value="">
+                                     <input type="text" class="required" id="pause_end" name="pause_end" class="datepick" rel="Specify End Date" value="">
+                                     <button type="button" id="add_pause" class="btn btn-success login-btn"> Insert </button>
+                            </fieldset>
+                        </form>
+
+
+                    <div>
+                        {foreach from=$pauses item=pause key=i}
+                                <a href="#">{$pause.pause_title}</a>
+                        {/foreach}
+                    </div>
+
+                
+                </div>
+
+            </div>
+    </div>
+</div>
+
+

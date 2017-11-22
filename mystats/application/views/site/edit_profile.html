@@ -1,0 +1,34 @@
+
+  <div id="login">
+    <!-- BEGIN LOGIN FORM -->
+    <form  name="profileForm" id="profileForm" class="form-vertical no-padding no-margin"  method="POST" action='{$base_url}info/profileupdate' >    		
+    {if $notify != ''}
+      <p class="response" style="color: green;">{$notify}</p>
+{/if}
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+            <input id="input_username" name='input_username' type="text" placeholder="Username" value="{$user.username}" />
+          </div>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+            <input id="input_email" name='input_email' type="text" placeholder="Email Address" value="{$user.display_name}"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+            <input id="input_password" name='input_password' type="password" placeholder="Change Password" />
+          </div>
+        </div>
+      </div>
+      <input type="submit" id="login-btn" class="btn btn-primary btn-block btn-large" value="Update" />
+    </form>
+    <!-- END LOGIN FORM -->        
+  </div>

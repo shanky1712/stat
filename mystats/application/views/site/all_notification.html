@@ -1,0 +1,30 @@
+<div id="main">
+
+                        <div class="widget-body">
+                           <table class="table table-hover">
+                              <thead>
+                                 <tr>
+                                    <th>#</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th class="hidden-phone">Username</th>
+                                    <th>Status</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                              <div class="scroll">
+								{foreach from=$details item=info key=i}
+                                 <tr>
+                                    <td>{$info.traffic_id}</td>
+                                    <td>{$info.user_screen_size}</td>
+                                    <td>{$info.url}</td>
+                                    <td class="hidden-phone">{$info.user_country}</td>
+                                    <td><span class="label label-success">{$info.user_ip}</span></td>
+                                 </tr>
+    							<a href="{$base_url}info/all_visits/50">next page</a>
+	                            {/foreach}
+							  </div>
+                              </tbody>
+                           </table>
+                        </div>
+</div>

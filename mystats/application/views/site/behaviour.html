@@ -1,0 +1,66 @@
+
+<link rel="stylesheet" type="text/css" href="{$static_server}files/assets/css/grid.css" />
+<script type="text/javascript" src="{$static_server}files/assets/js/blocksit.min.js"></script> 
+
+{literal}
+<script type="text/javascript">
+    $(document).ready(function() {
+        
+        //blocksit define
+        $(window).load( function() {
+            $('#grid-container').BlocksIt({
+                numOfCol: 4,
+                offsetX: 8,
+                offsetY: 8
+            });
+        });
+        
+        //window resize
+        var currentWidth = 1100;
+        $(window).resize(function() {
+            var winWidth = $(window).width();
+            var conWidth;
+            if(winWidth < 660) {
+                conWidth = 440;
+                col = 2
+            } else if(winWidth < 880) {
+                conWidth = 660;
+                col = 3
+            } else if(winWidth < 1100) {
+                conWidth = 880;
+                col = 4;
+            } else {
+                conWidth = 1100;
+                col = 5;
+            }
+            
+            if(conWidth != currentWidth) {
+                currentWidth = conWidth;
+                $('#grid-container').width(conWidth);
+                $('#grid-container').BlocksIt({
+                    numOfCol: col,
+                    offsetX: 8,
+                    offsetY: 8
+                });
+            }
+        });
+    });
+</script>
+
+{/literal}
+
+<section id="grid-wrapper">
+    <div id="grid-container">
+    {if $tags}
+        {foreach from=$tags item=tag key=i}
+            <div class="grid">
+                <strong>Label: {$tag.label}</strong>
+                <p>Total Visits: {$tag.total_visits}</p>
+                <a href='{$base_url}behaviour/label/{$tag.label}'><div class="meta">More</div></a>
+            </div>
+        {/foreach}
+    {else}
+        <div> No Action labels are available.</div>
+    {/if}
+    </div>
+</section>

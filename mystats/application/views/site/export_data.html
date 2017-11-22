@@ -1,0 +1,39 @@
+{literal}
+    <script type="text/javascript">
+
+        jQuery(document).ready(function(){
+            $('#start_date').Zebra_DatePicker({
+                pair: $('#end_date')
+            });
+             
+            $('#end_date').Zebra_DatePicker({
+                direction: 1
+            });
+        });
+    </script>
+{/literal}        
+
+<div id="main">
+
+    <div class="wrapper">
+        <form name="client_view_form" id="client_view_form" method="POST" action="index.php?/export/export_data/">
+            <div id="graph-wrapper">
+                Client View:            
+                <select name="client_api" id="client_api">
+                    {foreach from=$clients item=client key=i}
+                        <option value="{$client.user_api_key}">{$client.user_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+            <div>
+                <input type="text" name="start_date" id="start_date" />
+            </div>
+            <div>
+                <input type="text" name="end_date" id="end_date" />
+            </div>
+            <div>
+                <input type="submit" name="client_view_submit" id="client_view_submit" value="Submit"/>            
+            </div>                
+        </form>
+    </div>
+</div>

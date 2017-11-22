@@ -1,0 +1,57 @@
+
+  <div id="login">
+    <!-- BEGIN LOGIN FORM -->
+    <form  name="euserForm" id="euserForm" class="form-vertical no-padding no-margin"  method="POST" >
+    		
+      <p class="response" style="color: red;">{$msg}</p>
+
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+            <select name='user_type' id='user_type'>
+                  {foreach from=$user_types item=usertype key=i}
+                  {if $usertype.user_type_id == $info.user_type}
+                        <option value="{$usertype.user_type_id}" selected>{$usertype.user_type_name}</option>
+                  {else}
+                         <option value="{$usertype.user_type_id}">{$usertype.user_type_name}</option>
+                    {/if}
+                  {/foreach}
+            </select> 
+          </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+          <input type='hidden' name='user_id' id='user_id' value="{$info.user_id}" />
+            <input id="input_useremail" name='input_useremail' type="text" placeholder="Email ID" value="{$info.user_name}" />
+          </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+            <input id="input_pwd" name='input_pwd' type="text" placeholder="Change Password" value="" />
+          </div>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+           SItes: <br />
+                {foreach from=$sites item=site key=i}
+                  {if $site.site_id|in_array:$accessable_sites }
+                  <input id="sites[]" name='sites[]' type="checkbox" value="{$site.site_id}" checked="checked">{$site.site_name}</input><br />
+                  {else}
+                  <input id="sites[]" name='sites[]' type="checkbox" value="{$site.site_id}" >{$site.site_name}</input><br />
+                  {/if}
+                  {/foreach}
+          </div>
+        </div>
+      </div>
+
+      <input type="submit" id="update-btn" class="btn btn-primary btn-block btn-large" value="Update" />
+    </form>
+    <!-- END LOGIN FORM -->        
+  </div>

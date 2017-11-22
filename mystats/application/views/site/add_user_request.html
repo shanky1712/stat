@@ -1,0 +1,47 @@
+<div id="main">
+
+    {if $success}
+        <div align="center" id="proc_msg" style="align: center; color: green; font-weight: bold;">
+            <br>{$success}
+        </div>                    
+    {/if}
+    
+    {if $error}
+        <div align="center" id="proc_msg" style="align: center; color: red; font-weight: bold;">
+            <br>{$error}
+        </div>                    
+    {/if}
+            <!-- wrapper-main -->
+    <div class="wrapper">
+            {if $sess.user_id != ''}
+            
+                    <h2>You are already Logged in </h2>
+                    <a href="{$base_url}/home/my_profile/" >My Profile</a>
+                
+            {else}    
+
+                <form class="form-horizontal" method="POST" action="{$base_url}/home/invite_user/" class="formular" name="logForm" id="logForm">
+                  <fieldset>
+                          <legend>Add New User Request</legend>
+                          
+                          
+                    <div class="control-group">
+                          <label class="control-label" for="input01">User Email Address:</label>
+                          <div class="controls">
+                            <input type="email" class="required" id="user_email" name="user_email" rel="Enter User Email Address here!" value="">
+                          </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label" for="input01"></label>
+                          <div class="controls">
+                           <button type="submit" class="btn btn-success login-btn"> Invite!</button>
+                          </div>
+                    </div>
+                    
+                  </fieldset>
+                </form>
+        {/if}
+
+            </div>
+    </div>

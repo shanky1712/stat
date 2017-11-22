@@ -1,0 +1,47 @@
+
+  <div id="login">
+    <!-- BEGIN LOGIN FORM -->
+    <form  name="adduserForm" id="adduserForm" class="form-vertical no-padding no-margin"  method="POST" >
+    		
+      <p class="response" style="color: red;">{$msg}</p>
+
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+            <select name="user_type" id='user_type'>
+                  {foreach from=$usertypes item=usertype key=i}
+                        <option value="{$usertype.user_type_id}">{$usertype.user_type_name}</option>
+                  {/foreach}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+            <input id="input_username" name='input_username' type="text" placeholder="User Name" />
+          </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+            <input id="input_password" name='input_password' type="password" placeholder="User Password" />
+          </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+          Choose Sites: <br />
+          {foreach from=$list_out_sites item=site key=i}
+            <input id="sites[]" name='sites[]' type="checkbox" value="{$site.site_id}">{$site.site_name}</input><br />
+            {/foreach}
+          </div>
+        </div>
+      </div>
+
+      <input type="submit" id="add-user-btn" class="btn btn-primary btn-block btn-large" value="Add New User" />
+    </form>
+    <!-- END LOGIN FORM -->        
+  </div>

@@ -1,0 +1,63 @@
+<div id="main">
+            <!-- wrapper-main -->
+    <div class="wrapper">
+            {if $sess.user_id != ''}
+            
+                    <h2>You are already Logged in </h2>
+                    <a href="{$base_url}/home/my_profile/" >My Profile</a>
+                
+            {else}    
+             {if $error != ''}
+                    
+                    <h4 style="color:red; "> {$error} </h4>
+                    {/if}
+
+                <form class="form-horizontal" method="POST" action="{$base_url}/home/add_user/" class="formular" name="logForm" id="logForm" enctype="multipart/form-data" >
+                  <fieldset>
+                          <legend>Add New User Request</legend>
+                          
+                    <div class="control-group">
+                          <label class="control-label" for="input01">User Email Address:</label>
+                          <div class="controls">
+                            <input type="text" class="required" id="user_email" name="user_email" rel="Enter User Email Address here!" value="{$info.user_email}" readonly="readonly">
+                          </div>
+                    </div>
+                    
+                    <div class="control-group">
+                          <label class="control-label" for="input01">Company Name:</label>
+                          <div class="controls">
+                            <input type="text" class="required" id="user_name" name="user_name" rel="Enter Company name here!" value="">
+                          </div>
+                    </div>
+
+                    <div class="control-group">
+                          <label class="control-label" for="input01">Password:</label>
+                          <div class="controls">
+                            <input type="password" class="required" id="user_password" name="user_password" rel="Enter User Password here!" value="">
+                          </div>
+                    </div>
+
+                    <div class="control-group">
+                          <label class="control-label" for="input01">Company Logo:</label>
+                          <div class="controls">
+                            <input type="file" name="photoimg" id="photoimg" />
+                            <div id='preview' style="float: right; margin-right: 265px;">
+                            </div>
+                            
+                          </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label" for="input01"></label>
+                          <div class="controls">
+                              <input type="hidden" name="user_id" id="user_id" value="{$info.user_id}"></input>
+                           <button type="submit" class="btn btn-success update_user-btn"> Sign Up</button>
+                          </div>
+                    </div>
+                    
+                  </fieldset>
+                </form>
+        {/if}
+
+            </div>
+    </div>

@@ -1,0 +1,170 @@
+{literal}
+        <script type="text/javascript">
+
+        var unique_visitors = [ {/literal}{$unique_total}{literal}];
+
+        var repeat_visitors = [ {/literal}{$repeat_total}{literal}];
+            
+            $(function () {
+                $('#unique_container').highcharts({
+                    chart: {
+                        type: 'line'
+                    },
+                    title: {
+                        text: 'Unique Visitors Flow'
+                    },
+                    subtitle: {
+                        text: 'Tag+'
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        dateTimeLabelFormats: { // don't display the dummy year
+                            month: '%e. %b',
+                            year: '%b'
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Count Of Visits'
+                        },
+                        min: 0
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+                    tooltip: {
+                        enabled: false,
+                        formatter: function() {
+                            return '<b>'+ this.series.name +'</b><br/>'+
+                                this.x +': '+ this.y +'°C';
+                        }
+                    },
+                    
+                    series: [{
+                        name: 'Unique Visitors',
+                        // Define the data points. All series have a dummy year
+                        // of 1970/71 in order to be compared on the same x axis. Note
+                        // that in JavaScript, months start at 0 for January, 1 for February etc.
+                        data: unique_visitors
+                      }]
+                });
+            });
+
+
+
+
+            
+            $(function () {
+                $('#repeat_container').highcharts({
+                    chart: {
+                        type: 'line'
+                    },
+                    title: {
+                        text: 'Repeat Visitors Flow'
+                    },
+                    subtitle: {
+                        text: 'Tag+'
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        dateTimeLabelFormats: { // don't display the dummy year
+                            month: '%e. %b',
+                            year: '%b'
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Count Of Visits'
+                        },
+                        min: 0
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+                    tooltip: {
+                        enabled: false,
+                        formatter: function() {
+                            return '<b>'+ this.series.name +'</b><br/>'+
+                                this.x +': '+ this.y +'°C';
+                        }
+                    },
+                    
+                    series: [{
+                        name: 'Repeat Visitors',
+                        // Define the data points. All series have a dummy year
+                        // of 1970/71 in order to be compared on the same x axis. Note
+                        // that in JavaScript, months start at 0 for January, 1 for February etc.
+                        data: repeat_visitors
+                      }]
+                });
+            });
+
+            
+ </script>
+
+{/literal}
+
+    {if $success_message}
+        <div align="center" id="proc_msg" style="align: center; color: green; font-weight: bold; ">
+            <br>{$success_message}
+        </div>                    
+    {/if}
+
+    {if $error_message}
+        <div align="center" id="proc_msg" style="align: center; color: red; font-weight: bold;">
+            <br>{$error_message}
+        </div>                    
+    {/if}
+<div id="main">
+<!-- wrapper-main -->
+    <div class="wrapper">
+
+<div id="unique_container" style="float: left; min-width: 450px; width:500px; height: 400px; margin: 0 auto 0 0px"></div>
+
+<div id="repeat_container" style="min-width: 400px; width:450px; height: 400px; margin: 0 auto 0 0; float:right;"></div>
+
+<div><a href="{$base_url}/behaviour/visits/{literal}{$keyword}{literal}&download">Get Report in Excel</a></div>
+        
+        <table id="box-table-a" summary="Employee Pay Sheet" style="width: 925px; display: inline-block;">
+            <thead>
+                <tr>
+                    <th scope="col">URL</th>
+                    <th scope="col">BROWSER NAME</th>
+                    <th scope="col">USER AGENT LANG</th>
+                    <th scope="col">USER IP</th>
+                    <th scope="col">USER CITY</th>
+                    <th scope="col">USER COUNTRY</th>
+                    <th scope="col">PLATEFOTM</th>
+                    <th scope="col">DATE TIME</th>
+                </tr>
+            </thead>
+            <tbody>
+                {foreach from=$visit_details item=visit key=i}
+                    <tr>
+                        <td>{$visit.url}</td>
+                        <td>{$visit.user_browser_name}</td>
+                        <td>{$visit.user_agent_lang}</td>
+                        <td>{$visit.user_ip}</td>
+                        <td>{$visit.user_city}</td>
+                        <td>{$visit.user_country}</td>
+                        <td>{$visit.platform}</td>
+                        <td>{$visit.data_created_on}</td>
+                    </tr>
+                {/foreach}                
+            </tbody>
+        </table>    
+
+
+    </div>
+    
+</div>

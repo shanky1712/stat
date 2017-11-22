@@ -1,0 +1,15 @@
+<div id="main">
+    <div class="wrapper">
+        <form name="client_view_form" id="client_view_form" method="POST" action="index.php?/clients/view/">
+            <div id="graph-wrapper">
+                Client View:            
+                <select name="client_view" id="client_view">
+                    {foreach from=$clients item=client key=i}
+                        <option value="{$client.user_api_key}">{$client.user_name}</option>
+                    {/foreach}
+                </select>
+                <input type="submit" name="client_view_submit" id="client_view_submit" value="Submit"/>
+            </div>
+        </form>
+    </div>
+</div>

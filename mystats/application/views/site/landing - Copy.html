@@ -1,0 +1,368 @@
+
+{literal}
+
+<script type="text/javascript">
+
+	$(document).ready(function( ) {
+		
+ 		var unique_datas = [ {/literal}{$visits}{literal} ];
+ 		
+		$('#unique_container').highcharts({
+	        chart: {
+	            type: 'line'
+	        },
+	        title: {
+	            text: 'Visitors Flow'
+	        },
+	        subtitle: {
+	            text: 'mySTATS'
+	        },
+	        xAxis: {
+	            type: 'datetime',
+	            dateTimeLabelFormats: { // don't display the dummy year
+	                month: '%e. %b',
+	                year: '%b'
+	            }
+	        },
+	        yAxis: {
+	            title: {
+	                text: 'Page Views'
+	            },
+	            min: 0
+	        },
+	        plotOptions: {
+	            line: {
+	                dataLabels: {
+	                    enabled: true
+	                },
+	                enableMouseTracking: false
+	            }
+	        },
+	        tooltip: {
+	            enabled: false,
+	            formatter: function() {
+	                return '<b>'+ this.series.name +'</b><br/>'+
+	                    this.x +': '+ this.y +'°C';
+	            }
+	        },
+	        
+	        series: [{
+	            name: 'Visitors Flow',
+	            data: unique_datas
+	          }]
+	    });
+		
+	});
+
+	function sample()
+	{
+		$.removeCookie('country', {expires: -1, path: '/'});
+		$.removeCookie('country_code', {expires: -1, path: '/'});
+		
+		window.location.reload();
+		
+	}
+
+	
+</script>
+
+{/literal}
+
+	{if $success_message}
+		<div align="center" id="proc_msg" style="align: center; color: green; font-weight: bold; ">
+			<br>{$success_message}
+		</div>                    
+	{/if}
+
+	{if $error_message}
+		<div align="center" id="proc_msg" style="align: center; color: red; font-weight: bold;">
+			<br>{$error_message}
+		</div>                    
+	{/if}
+<div id="main">
+<!-- wrapper-main -->
+
+		<input type='hidden' name='start_date' id='start_date' />
+		<input type='hidden' name='end_date' id='end_date' />
+		
+		{if $country_code != '' || $country !=''}
+			<div class='alert alert-success country'>You are seeing {$country} Report. If you want to see the complete report <a href='#' onClick="sample()">Click Here</a></div>
+		{/if}
+				<!-- BEGIN PAGE CONTENT-->
+				<div id="page" class="dashboard">
+					<!-- BEGIN OVERVIEW STATISTIC BARS-->
+					<div class="row-fluid stats-overview-cont">
+						<div class="span2 responsive" data-tablet="span4" data-desktop="span2">
+							<div class="stats-overview block clearfix">
+								<div class="display stat ok huge">
+									<div class="percent"></div>
+								</div>
+								<div class="details">
+									<div class="title">Pageviews</div>
+									<div class="numbers">{$total_visits}</div>
+								</div>
+								<div class="progress progress-info">
+									<div class="bar" style="width: 100%"></div>
+								</div>
+							</div>
+						</div>
+						<div class="span2 responsive" data-tablet="span4" data-desktop="span2">
+							<div class="stats-overview block clearfix">
+								<div class="display stat good huge">
+									<div class="percent"></div>
+								</div>
+								<div class="details">
+									<div class="title">Unique Visits</div>
+									<div class="numbers">{$unique_visits}</div>
+									<div class="progress progress-warning">
+										<div class="bar" style="width: 100%"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="span2 responsive " data-tablet="span4" data-desktop="span2">
+							<div class="stats-overview block clearfix">
+								<div class="display stat bad huge">
+									<div class="percent"></div>
+								</div>
+								<div class="details">
+									<div class="title">Repeat Visits</div>
+									<div class="numbers">{$count_repeat}</div>
+									<div class="progress progress-success">
+										<div class="bar" style="width: 100%"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="span2 responsive " data-tablet="span4 fix-margin" data-desktop="span2">
+							<div class="stats-overview block clearfix">
+								<div class="display stat good huge">
+									<div class="percent"></div>
+								</div>
+								<div class="details">
+									<div class="title">Chrome / Firefox</div>
+									<div class="numbers">{$browser_chrome} / {$browser_firefox}</div>
+									<div class="progress progress-warning">
+										<div class="bar" style="width: 100%"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="span2 responsive " data-tablet="span4" data-desktop="span2">
+							<div class="stats-overview block clearfix">
+								<div class="display stat ok huge">
+									<div class="percent"></div>
+								</div>
+								<div class="details">
+									<div class="title">{$top_1_country.user_country} / {$top_2_country.user_country}</div>
+									<div class="numbers">{$top_1_country.count_of_hits} / {$top_2_country.count_of_hits}</div>
+									<div class="progress progress-danger">
+										<div class="bar" style="width: 100%"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="span2 responsive" data-tablet="span4" data-desktop="span2">
+							<div class="stats-overview block clearfix">
+								<div class="display stat bad huge">
+									<div class="percent"></div>
+								</div>
+								<div class="details">
+									<div class="title">{$top_1_language.user_agent_lang} / {$top_2_language.user_agent_lang}</div>
+									<div class="numbers">{$top_1_language.count_of_hits} / {$top_2_language.count_of_hits}</div>
+									<div class="progress progress-success">
+										<div class="bar" style="width: 100%"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END OVERVIEW STATISTIC BARS-->
+					<div class="row-fluid">
+						<div class="span8">
+							<!-- BEGIN SITE VISITS PORTLET-->
+							<div class="widget">
+								<div class="widget-title">
+									<h4><i class="icon-signal"></i>Site Visits</h4>
+									<span class="tools">
+									<a href="javascript:;" class="icon-chevron-down"></a>
+									<a href="#widget-config" data-toggle="modal" class="icon-wrench"></a>
+									<a href="javascript:;" class="icon-refresh"></a>		
+									<a href="javascript:;" class="icon-remove"></a>
+									</span>							
+								</div>
+								<div class="widget-body">
+									<div id='unique_container'></div>
+								</div>
+							</div>
+							<!-- END SITE VISITS PORTLET-->
+						</div>
+						<div class="span4">
+							<!-- BEGIN NOTIFICATIONS PORTLET-->
+							<div class="widget">
+								<div class="widget-title">
+									<h4><i class="icon-bell"></i>Notifications</h4>
+									<span class="tools">
+									<a href="javascript:;" class="icon-chevron-down"></a>
+									<a href="#widget-config" data-toggle="modal" class="icon-wrench"></a>
+									<a href="javascript:;" class="icon-refresh"></a>
+									</span>							
+								</div>
+								<div class="widget-body" style="height: 399px;">
+									<ul class="item-list scroller padding" data-height="377" data-always-visible="1">
+										{foreach from=$latest_events item=hits key=i}
+											{if isset($hits.user_ip) } 
+											<li>
+												<span class="label label-success"><i class="icon-bell"></i></span>
+												<span>Visits from {$hits.user_ip}</span>
+												<span> ( { if $hits.user_country != '' } {$hits.user_country} {else} undefined {/if} )</span>
+												<span class="small italic">{$hits.time_ago}</span>
+											</li>
+											{else}
+											<li>
+												<h4 style="color: blue; text-align: center;">Empty Visits. Waiting for the New Visits...</h4>
+											</li>
+											{/if}
+										{/foreach}
+									</ul>
+									<div class="space5"></div>
+									<a href="{$base_url}info/all_visits/" class="pull-right">View all notifications</a>										
+									<div class="clearfix no-top-space no-bottom-space"></div>
+								</div>
+							</div>
+							<!-- END NOTIFICATIONS PORTLET-->
+						</div>
+					</div>
+					<!-- END OVERVIEW STATISTIC BLOCKS-->
+					<div class="row-fluid">
+						<div class="span6">
+							<!-- BEGIN REGIONAL STATS PORTLET-->
+							<div class="widget">
+								<div class="widget-title">
+									<h4><i class="icon-globe"></i>Regional Stats</h4>
+									<span class="tools">
+									<a href="javascript:;" class="icon-chevron-down"></a>
+									<a href="#widget-config" data-toggle="modal" class="icon-wrench"></a>
+									<a href="javascript:;" class="icon-refresh"></a>		
+									<a href="javascript:;" class="icon-remove"></a>										
+									</span>							
+								</div>
+								<div class="widget-body">
+									<div id="region_statistics_loading">
+										<img src="assets/img/loading.gif" alt="loading" />
+									</div>
+									<div id="region_statistics_content" class="hide">
+										<div class="btn-toolbar no-top-space clearfix">
+											<a href='world.html' class='btn primary'>Entire World</a>
+										</div>
+										<div id="vmap_world" class="vmaps  chart hide"></div>
+									</div>
+								</div>
+							</div>
+							<!-- END REGIONAL STATS PORTLET-->
+						</div>
+						<div class="span6">
+							<!-- BEGIN RECENT ORDERS PORTLET-->
+							<div class="widget">
+								<div class="widget-title">
+									<h4><i class="icon-shopping-cart"></i>Demographics</h4>
+									<span class="tools">
+									<a href="javascript:;" class="icon-chevron-down"></a>
+									<a href="#widget-config" data-toggle="modal" class="icon-wrench"></a>
+									<a href="javascript:;" class="icon-refresh"></a>		
+									<a href="javascript:;" class="icon-remove"></a>
+									</span>							
+								</div>
+								<div class="widget-body">
+									<table class="table table-striped table-bordered table-advance table-hover">
+										<thead>
+											<tr>
+												<th><i class="icon-user"></i> <span class="hidden-phone ">Country</span></th>
+												<th><i class="icon-briefcase"></i> <span class="hidden-phone">Visits</span></th>
+												<th><i class="icon-user"></i> <span class="hidden-phone "></span></th>
+											</tr>
+										</thead>
+										<tbody>
+										{foreach from=$country_data item=data key=i}
+										{if $i < 9 && $data.lang != ''}
+											<tr>
+												<td class="highlight">
+													<div class="success"></div>
+													<a href="#">{$data.lang}</a>
+												</td>
+												<td>{$data.users} <a href="#" class="btn btn-mini visible-phone hidden-tablet">View</a> </td>
+												<td><a href="{$base_url}info/user_country_details/{$data.user_country_code}" class="btn btn-mini hidden-phone hidden-tablet">View</a></td>
+											</tr>
+										{/if}
+										{/foreach}
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<!-- END RECENT ORDERS PORTLET-->
+						</div>
+					</div>
+				</div>
+				<!-- END PAGE CONTENT-->
+
+	<div class="row-fluid">
+		<div class="span6">
+            <!-- BEGIN SITE VISITS PORTLET-->
+            <div class="widget">
+            	<div class="widget-title">
+            		<h4><i class="icon-shopping-cart"></i>Browser</h4>
+            		<span class="tools">
+            		<a href="javascript:;" class="icon-chevron-down"></a>
+            		<a href="#widget-config" data-toggle="modal" class="icon-wrench"></a>
+            		<a href="javascript:;" class="icon-refresh"></a>		
+            		<a href="javascript:;" class="icon-remove"></a>
+            		</span>            
+            	</div>
+            	<div class="widget-body">
+            		<table class="table table-striped table-bordered table-advance table-hover">
+            			<tbody>
+            				{foreach from=$browsers item=browser key=i}
+            			    	<tr>
+            			        	<td><a href="{$base_url}overview/browser?_={$browser.browser_name}">{$browser.browser_name}</a></td>
+            			        </tr>
+            				{/foreach}
+            			</tbody>
+            		</table>
+            	</div>
+            </div>
+
+						</div>
+		<div class="span6">
+		
+		<!-- BEGIN SITE VISITS PORTLET-->
+			<div class="widget">
+				<div class="widget-title">
+					<h4><i class="icon-shopping-cart"></i>Demographics</h4>
+					<span class="tools">
+					<a href="javascript:;" class="icon-chevron-down"></a>
+					<a href="#widget-config" data-toggle="modal" class="icon-wrench"></a>
+					<a href="javascript:;" class="icon-refresh"></a>		
+					<a href="javascript:;" class="icon-remove"></a>
+				    </span>			
+				</div>
+            <div class="widget-body">
+            	<table class="table table-striped table-bordered table-advance table-hover">
+            		<tbody>
+            		    <tr>
+            		        <td><a href="{$base_url}demographics/Language" >Language</a></td>	        
+            		    </tr>
+            		    <tr>
+            		        <td><a href="{$base_url}demographics/Territory">Country / Territory </a></td>
+						</tr>
+						<tr>
+            <td><a href="{$base_url}demographics/City">City</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+	</div>
+	
+</div>

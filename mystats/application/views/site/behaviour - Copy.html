@@ -1,0 +1,76 @@
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+ {literal}
+
+<script type="text/javascript">
+
+    //var input_data = [ ["Year", "Sales"], ["2004",  1000], ["2005",  1170], ["2006",  660,], ["2007",  1030]  ];
+
+  
+     google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable( [ {/literal}{$visits}{literal} ] );
+
+        var options = {
+          title: 'Action Events'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('unique_container'));
+        chart.draw(data, options);
+      }
+    
+
+    	function sample()
+	{
+		$.removeCookie('country', {expires: -1, path: '/'});
+		$.removeCookie('country_code', {expires: -1, path: '/'});
+		
+		window.location.reload();
+		
+	}
+
+	
+</script>
+
+{/literal}
+
+
+{/literal}
+
+	{if $success_message}
+		<div align="center" id="proc_msg" style="align: center; color: green; font-weight: bold;">
+			<br>{$success_message}
+		</div>                    
+	{/if}
+
+	{if $error_message}
+		<div align="center" id="proc_msg" style="align: center; color: red; font-weight: bold;">
+			<br>{$error_message}
+		</div>                    
+	{/if}
+<div id="main">
+<!-- wrapper-main -->
+	<div class="wrapper">
+
+	<div id="unique_container" style="min-width: 400px; width:100%; height: 400px; margin: 0 auto 0 0; float:right;"></div>
+
+		{if $label.label_name}
+		<table id="box-table-a" summary="Employee Pay Sheet" style="width: 925px;">
+		    <thead>
+		    	<tr>
+		        	<th scope="col">{$labels.label_name}</th>
+		            <th scope="col">{$labels.count_of_value}</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+				{foreach from=$datas item=data key=i}
+			    	<tr>
+			        	<td>{$data.label} ({$data.visits})</td>
+			        </tr>
+				{/foreach}		    	
+			</tbody>
+		</table>			
+		{/if}
+	</div>
+</div>
